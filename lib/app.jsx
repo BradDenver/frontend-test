@@ -1,8 +1,8 @@
-var React = require('react');
+import React from 'react';
 
-var Howdy = React.createClass({
+let Howdy = React.createClass({
 
-  render: function() {
+  render() {
     return (
       <div>Hello</div>
     );

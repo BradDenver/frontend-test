@@ -21,6 +21,8 @@
     "react": "^0.12.2"
   },
   "devDependencies": {
+    "babel-core": "^4.4.6",
+    "babel-loader": "^4.0.0",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.5",
     "webpack": "^1.6.0",

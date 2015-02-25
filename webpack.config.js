@@ -29,7 +29,7 @@ module.exports = {
     loaders: [
       {
         test    : /\.jsx$/,
-        loaders : ['react-hot', 'jsx']
+        loaders : ['react-hot', 'jsx', 'babel']
       }
     ]
   }
