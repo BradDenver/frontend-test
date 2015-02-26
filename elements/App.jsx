@@ -22,14 +22,20 @@ export default React.createClass({
         <Form />
         <ul>
           { 
-            this.state.counters.map(c => 
-              <CounterItem key={c.id} counter={c} />
+            this.state.counters.map((c, i) => 
+              <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, i)}/>
             )
           }
         </ul>
         <Total counters={this.state.counters} />
       </div>
     );
+  },
+
+  incCounter(i, inc) {
+    let newCounters = this.state.counters;
+    newCounters[i].count += inc;
+    this.setState({counters: newCounters});
   }
 
 });
