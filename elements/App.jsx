@@ -19,7 +19,7 @@ export default React.createClass({
     return (
       <div>
         <h1>Counter App</h1>
-        <Form />
+        <Form addCounter={this.addCounter} />
         <ul>
           { 
             this.state.counters.map((c, i) => 
@@ -30,6 +30,16 @@ export default React.createClass({
         <Total counters={this.state.counters} />
       </div>
     );
+  },
+
+  addCounter(title) {
+    let newCounters = this.state.counters;
+    newCounters.push({
+      id    : Date.now(),
+      title : title,
+      count : 0
+    });
+    this.setState({counters: newCounters});
   },
 
   incCounter(i, inc) {

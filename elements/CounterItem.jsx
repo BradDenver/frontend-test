@@ -8,11 +8,12 @@ export default React.createClass({
   },
 
   render() {
-    let c = this.props.counter
+    let c = this.props.counter;
+    let decDisabled = c.count === 0;
     return (
       <li key={c.id}>
         {c.title}&nbsp;
-        <button onClick={this.props.incCounter.bind(this, -1)}>-</button>
+        <button onClick={this.props.incCounter.bind(this, -1)} disabled={decDisabled}>-</button>
         {c.count}
         <button onClick={this.props.incCounter.bind(this, 1)}>+</button>
       </li>
