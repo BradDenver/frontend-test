@@ -23,7 +23,7 @@ export default React.createClass({
         <ul>
           { 
             this.state.counters.map((c, i) => 
-              <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, i)}/>
+              <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, i)} removeCounter={this.removeCounter.bind(this, i)} />
             )
           }
         </ul>
@@ -45,6 +45,12 @@ export default React.createClass({
   incCounter(i, inc) {
     let newCounters = this.state.counters;
     newCounters[i].count += inc;
+    this.setState({counters: newCounters});
+  },
+
+  removeCounter(i) {
+    let newCounters = this.state.counters;
+    newCounters.splice(i, 1);;
     this.setState({counters: newCounters});
   }
 
