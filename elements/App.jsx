@@ -1,5 +1,9 @@
 import React from 'react';
 
+import CounterItem from './CounterItem';
+import Form        from './Form';
+import Total       from './Total';
+
 export default React.createClass({
 
   getInitialState() {
@@ -12,23 +16,18 @@ export default React.createClass({
   },
 
   render() {
-    let counts = this.state.counters.map(c => c.count);
-    let total = counts.reduce((acc, c) => acc + c);
     return (
       <div>
         <h1>Counter App</h1>
-        <div>
-          <input type="text" />
-          <button>Add</button>
-        </div>
+        <Form />
         <ul>
           { 
             this.state.counters.map(c => 
-              <li key={c.id}>{c.title} <button>-</button>{c.count}<button>+</button></li>
+              <CounterItem key={c.id} counter={c} />
             )
           }
         </ul>
-        <div>Total: { total }</div>
+        <Total counters={this.state.counters} />
       </div>
     );
   }
