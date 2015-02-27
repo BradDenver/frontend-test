@@ -8,7 +8,7 @@ export default React.createClass({
 
   render() {
     let counts = this.props.counters.map(c => c.count);
-    let total = counts.reduce((acc, c) => acc + c);
+    let total = counts.reduce((acc, c) => acc + c, 0);
     return (
       <div>Total: { total }</div>
     );

@@ -4,6 +4,7 @@
   "description": "sitepoint front end test",
   "main": "index.js",
   "scripts": {
+    "build": "webpack -p --progress",
     "start": "node index.js",
     "start-dev": "webpack --progress && node indexDev"
   },
@@ -18,7 +19,8 @@
     "express": "^4.11.0",
     "lodash": "^2.4.1",
     "morgan": "^1.5.1",
-    "react": "^0.12.2"
+    "react": "^0.12.2",
+    "superagent": "^0.21.0"
   },
   "devDependencies": {
     "babel-core": "^4.4.6",

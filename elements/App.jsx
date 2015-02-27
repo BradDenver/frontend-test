@@ -1,4 +1,5 @@
-import React from 'react';
+import React   from 'react';
+import request from 'superagent';
 
 import CounterItem from './CounterItem';
 import Form        from './Form';
@@ -9,10 +10,14 @@ export default React.createClass({
   getInitialState() {
     return {
       counters: [
-        {id: 1, title: 'aaa', count: 3},
-        {id: 2, title: 'bbb', count: 4},
+        // {id: 1, title: 'aaa', count: 3},
+        // {id: 2, title: 'bbb', count: 4},
       ]
     }
+  },
+
+  componentDidMount() {
+    this.fetchCounters();
   },
 
   render() {
@@ -22,8 +27,8 @@ export default React.createClass({
         <Form addCounter={this.addCounter} />
         <ul>
           { 
-            this.state.counters.map((c, i) => 
-              <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, i)} removeCounter={this.removeCounter.bind(this, i)} />
+            this.state.counters.map(c => 
+              <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, c.id)} removeCounter={this.removeCounter.bind(this, c.id)} />
             )
           }
         </ul>
@@ -33,25 +38,30 @@ export default React.createClass({
   },
 
   addCounter(title) {
-    let newCounters = this.state.counters;
-    newCounters.push({
-      id    : Date.now(),
-      title : title,
-      count : 0
-    });
-    this.setState({counters: newCounters});
+    request.post('/api/v1/counter')
+      .send({title})
+      .end(this.setCounters);
   },
 
-  incCounter(i, inc) {
-    let newCounters = this.state.counters;
-    newCounters[i].count += inc;
-    this.setState({counters: newCounters});
+  incCounter(id, inc) {
+    let endPoint = (inc > 0) ? 'inc' : 'dec';
+    request.post('/api/v1/counter/' + endPoint)
+      .send({id})
+      .end(this.setCounters);
   },
 
-  removeCounter(i) {
-    let newCounters = this.state.counters;
-    newCounters.splice(i, 1);;
-    this.setState({counters: newCounters});
+  fetchCounters() {
+    request.get('/api/v1/counters', this.setCounters);
+  },
+
+  removeCounter(id) {
+    request('DELETE', '/api/v1/counter')
+      .send({id})
+      .end(this.setCounters);
+  },
+
+  setCounters(res) {
+    this.setState({counters: res.body});
   }
 
 });
