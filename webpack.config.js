@@ -1,5 +1,6 @@
-var PORT  = Number( process.env.PORT || 3000 ),
-  webpack = require('webpack');
+var PORT            = Number( process.env.PORT || 3000 ),
+  ExtractTextPlugin = require("extract-text-webpack-plugin"),
+  webpack           = require('webpack');
 
 var common = {
 
@@ -11,6 +12,10 @@ var common = {
     filename : '[name].js'
   },
 
+  plugins: [
+    new ExtractTextPlugin("[name].css")
+  ],
+
   resolve: {
     // Allow to omit extensions when requiring these files
     extensions: ['', '.js', '.jsx']
@@ -18,6 +23,10 @@ var common = {
 
   module: {
     loaders: {
+      css: {
+        test   : /\.css$/,
+        loader : ExtractTextPlugin.extract("style-loader", "css-loader")
+      },
       jsx: {
         test    : /\.jsx$/,
         loaders : ['react-hot', 'jsx', 'babel']
@@ -39,10 +48,13 @@ module.exports = [
       filename : common.output.filename
     },
 
+    plugins: common.plugins,
+
     resolve: common.resolve,
 
     module: {
       loaders: [
+        common.module.loaders.css,
         common.module.loaders.jsx
       ]
     }
@@ -63,14 +75,15 @@ module.exports = [
       filename : common.output.filename
     },
 
-    plugins: [
+    plugins: common.plugins.concat(
       new webpack.HotModuleReplacementPlugin()
-    ],
+    ),
 
     resolve: common.resolve,
 
     module: {
       loaders: [
+        common.module.loaders.css,
         {
           test    : common.module.loaders.jsx.test,
           loaders : ['react-hot'].concat(common.module.loaders.jsx.loaders)

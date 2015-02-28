@@ -10,7 +10,7 @@ export default React.createClass({
     let counts = this.props.counters.map(c => c.count);
     let total = counts.reduce((acc, c) => acc + c, 0);
     return (
-      <div>Total: { total }</div>
+      <div className="well text-right">Total: <span className="badge">{ total }</span></div>
     );
   }
 

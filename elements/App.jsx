@@ -5,14 +5,13 @@ import CounterItem from './CounterItem';
 import Form        from './Form';
 import Total       from './Total';
 
+import './App.css';
+
 export default React.createClass({
 
   getInitialState() {
     return {
-      counters: [
-        // {id: 1, title: 'aaa', count: 3},
-        // {id: 2, title: 'bbb', count: 4},
-      ]
+      counters: []
     }
   },
 
@@ -22,16 +21,18 @@ export default React.createClass({
 
   render() {
     return (
-      <div>
-        <h1>Counter App</h1>
-        <Form addCounter={this.addCounter} />
-        <ul>
+      <div className="container">
+        <div className="page-header">
+          <h1>Counter App</h1>
+          <Form addCounter={this.addCounter} />
+        </div>
+        <div className="list-group">
           { 
             this.state.counters.map(c => 
               <CounterItem key={c.id} counter={c} incCounter={this.incCounter.bind(this, c.id)} removeCounter={this.removeCounter.bind(this, c.id)} />
             )
           }
-        </ul>
+        </div>
         <Total counters={this.state.counters} />
       </div>
     );
@@ -43,7 +44,8 @@ export default React.createClass({
       .end(this.setCounters);
   },
 
-  incCounter(id, inc) {
+  incCounter(id, inc, e) {
+    e.preventDefault();
     let endPoint = (inc > 0) ? 'inc' : 'dec';
     request.post('/api/v1/counter/' + endPoint)
       .send({id})
@@ -54,7 +56,8 @@ export default React.createClass({
     request.get('/api/v1/counters', this.setCounters);
   },
 
-  removeCounter(id) {
+  removeCounter(id, e) {
+    e.preventDefault();
     request('DELETE', '/api/v1/counter')
       .send({id})
       .end(this.setCounters);
