@@ -1,5 +1,7 @@
 import React from 'react/addons';
 
+import CountersActions from '../actions/Counters';
+
 export default React.createClass({
 
   mixins: [React.addons.LinkedStateMixin],
@@ -8,10 +10,6 @@ export default React.createClass({
     return {title: ''};
   },
 
-  propTypes: {
-    addCounter: React.PropTypes.func.isRequired
-  },
-  
   render() {
     return (
       <div className="input-group input-group-lg">
@@ -27,7 +25,7 @@ export default React.createClass({
     if(!this.state.title) {
       return;
     }
-    this.props.addCounter(this.state.title);
+    CountersActions.createCounter(this.state.title);
     this.setState({title: ''});
   }
 

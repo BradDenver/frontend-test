@@ -27,6 +27,11 @@ var common = {
         test   : /\.css$/,
         loader : ExtractTextPlugin.extract("style-loader", "css-loader")
       },
+      js: {
+        test    : /\.js$/,
+        exclude : /node_modules/,
+        loader  : 'babel-loader'
+      },
       jsx: {
         test    : /\.jsx$/,
         loaders : ['react-hot', 'jsx', 'babel']
@@ -55,6 +60,7 @@ module.exports = [
     module: {
       loaders: [
         common.module.loaders.css,
+        common.module.loaders.js,
         common.module.loaders.jsx
       ]
     }
@@ -84,6 +90,7 @@ module.exports = [
     module: {
       loaders: [
         common.module.loaders.css,
+        common.module.loaders.js,
         {
           test    : common.module.loaders.jsx.test,
           loaders : ['react-hot'].concat(common.module.loaders.jsx.loaders)
