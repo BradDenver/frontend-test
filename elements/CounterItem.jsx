@@ -7,8 +7,11 @@ export default React.createClass({
   propTypes: {
     counter : React.PropTypes.object.isRequired
   },
-
-  render() {
+contextTypes: {
+    flux: React.PropTypes.object.isRequired,
+  },
+  render() { 
+    // console.log(this.context.flux);
     let c = this.props.counter;
     let decDisabled = c.count === 0;
     return (

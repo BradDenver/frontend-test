@@ -7,10 +7,15 @@ import Total       from './Total';
 
 import CountersActions from '../actions/Counters';
 import CountersStore   from '../stores/Counters';
+import FluxComponent from 'flummox/component';
 
 import './App.css';
 
 export default React.createClass({
+
+  contextTypes: {
+    flux: React.PropTypes.object.isRequired,
+  },
 
   onChange() {
     this.setState({counters: CountersStore.getAll()});
@@ -24,7 +29,9 @@ export default React.createClass({
 
   componentDidMount() {
     CountersStore.addChangeListener(this.onChange);
-    CountersActions.fetchCounters();
+    // CountersActions.fetchCounters();
+    console.log(this.context.flux.getStore('counters'), this.context.flux.getActions('counters'));
+    this.context.flux.getActions('counters').fetchCounters();
   },
 
   componentWillUnmount() {
@@ -33,6 +40,7 @@ export default React.createClass({
 
   render() {
     return (
+      <FluxComponent connectToStores={'counters'}>
       <div className="container">
         <div className="page-header">
           <h1>Counter App</h1>
@@ -47,6 +55,7 @@ export default React.createClass({
         </div>
         <Total counters={this.state.counters} />
       </div>
+      </FluxComponent>
     );
   }
 

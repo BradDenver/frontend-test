@@ -30,7 +30,7 @@ var common = {
       js: {
         test    : /\.js$/,
         exclude : /node_modules/,
-        loader  : 'babel-loader'
+        loader  : 'regenerator!babel-loader?experimental'
       },
       jsx: {
         test    : /\.jsx$/,
