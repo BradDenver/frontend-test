@@ -1,10 +1,12 @@
 import React from 'react/addons';
 
-import CountersActions from '../actions/Counters';
-
 export default React.createClass({
 
   mixins: [React.addons.LinkedStateMixin],
+  
+  contextTypes: {
+    flux: React.PropTypes.object.isRequired,
+  },
 
   getInitialState() {
     return {title: ''};
@@ -25,7 +27,7 @@ export default React.createClass({
     if(!this.state.title) {
       return;
     }
-    CountersActions.createCounter(this.state.title);
+    this.context.flux.getActions('counters').createCounter(this.state.title);
     this.setState({title: ''});
   }
 

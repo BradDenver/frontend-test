@@ -6,7 +6,10 @@ export default class CountersStore extends Store {
     super();
 
     let countersActionIds = flux.getActionIds('counters');
+    this.register(countersActionIds.createCounter, this.handleUpdateCounters);
     this.register(countersActionIds.fetchCounters, this.handleUpdateCounters);
+    this.register(countersActionIds.incCounter, this.handleUpdateCounters);
+    this.register(countersActionIds.removeCounter, this.handleUpdateCounters);
 
     this.state = {
       counters: [],

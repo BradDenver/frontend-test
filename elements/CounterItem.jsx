@@ -1,15 +1,15 @@
 import React from 'react';
 
-import CountersActions from '../actions/Counters';
-
 export default React.createClass({
 
   propTypes: {
     counter : React.PropTypes.object.isRequired
   },
-contextTypes: {
+
+  contextTypes: {
     flux: React.PropTypes.object.isRequired,
   },
+  
   render() { 
     // console.log(this.context.flux);
     let c = this.props.counter;
@@ -35,12 +35,12 @@ contextTypes: {
 
   handleInc(inc, e) {
     e.preventDefault();
-    CountersActions.incCounter(this.props.counter.id, inc);
+    this.context.flux.getActions('counters').incCounter(this.props.counter.id, inc);
   },
 
   handleRemove(e) {
     e.preventDefault();
-    CountersActions.removeCounter(this.props.counter.id);
+    this.context.flux.getActions('counters').removeCounter(this.props.counter.id);
   }
 
 });

@@ -32,6 +32,8 @@
     "css-loader": "^0.9.1",
     "jsx-loader": "^0.12.2",
     "react-hot-loader": "^1.1.5",
+    "regenerator": "^0.8.15",
+    "regenerator-loader": "^2.0.0",
     "style-loader": "^0.8.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
