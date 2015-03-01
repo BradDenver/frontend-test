@@ -1,11 +1,8 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import request       from 'superagent';
+import send    from "dispy/send";
+import request from 'superagent';
 
 function updateCounters(res) {
-  AppDispatcher.handleAction({
-    type: "UPDATE_COUNTERS",
-    counters: res.body
-  });
+  send("COUNTERS_UPDATE", {counters : res.body});
 };
 
 export default {

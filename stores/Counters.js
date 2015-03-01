@@ -1,41 +1,14 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-
-import {EventEmitter} from 'events';
-import assign         from 'object-assign';
+import Projection from 'dispy/projection';
 
 let counters = [];
 
-let CountersStore = assign({}, EventEmitter.prototype, {
+let store = new Projection("COUNTERS");
 
-  emitChange() {
-    this.emit('change');
-  },
-
-  addChangeListener(callback) {
-    this.on('change', callback);
-  },
-
-  removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  },
-
-  getAll() {
-    return counters;
-  }
+store.register("COUNTERS_UPDATE", function(payload) {
+    counters = payload.action.counters;
 });
 
-AppDispatcher.register(payload => {
-  let {action} = payload;
+store.getAll = function() { return counters }
 
-  switch(action.type) {
+export default store;
 
-    case "UPDATE_COUNTERS":
-      counters = action.counters;
-      CountersStore.emitChange();
-      break;
-
-    default:
-  }
-});
-
-export default CountersStore;

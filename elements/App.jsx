@@ -1,5 +1,6 @@
-import React   from 'react';
-import request from 'superagent';
+import React     from 'react';
+import request   from 'superagent';
+import subscribe from "dispy/subscribe";
 
 import CounterItem from './CounterItem';
 import Form        from './Form';
@@ -10,25 +11,18 @@ import CountersStore   from '../stores/Counters';
 
 import './App.css';
 
+function state() {
+  return {
+    counters: CountersStore.getAll()
+  }
+};
+
 export default React.createClass({
 
-  onChange() {
-    this.setState({counters: CountersStore.getAll()});
-  },
-
-  getInitialState() {
-    return {
-      counters: CountersStore.getAll()
-    }
-  },
+  mixins: [subscribe(state, CountersStore)],
 
   componentDidMount() {
-    CountersStore.addChangeListener(this.onChange);
     CountersActions.fetchCounters();
-  },
-
-  componentWillUnmount() {
-    CountersStore.removeChangeListener(this.onChange);
   },
 
   render() {
