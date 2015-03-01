@@ -1,3 +1,18 @@
+## My Implementation
+![Travis CI](https://travis-ci.org/BradDenver/frontend-test.svg?branch=master)
+I have completed 4 different implementations of the Counters App in React:
+* [Basic React](https://github.com/BradDenver/frontend-test) a basic non flux implementation. See [this commit](https://github.com/BradDenver/frontend-test/tree/dd606386bd0ff326aa965fc0c4204904a73f8672) for a version that does not hit the server api
+* [Flux Basic](https://github.com/BradDenver/frontend-test/tree/flux-basic) a basic "vanilla" flux implementation
+* [Flux Dispy](https://github.com/BradDenver/frontend-test/tree/flux-dispy) a flux implementation using the Dispy package
+* [Flux Flummox](https://github.com/BradDenver/frontend-test/tree/flux-flummox) a flux implementation using the Flummox package that I had been meaning to try for a while
+
+In each branch:
+* `npm run build` starts a webpack dev server on localhost:3000 with hot module reloading
+* `npm build` builds the app to `/static/` (although a built version has been commited)
+* `npm start` runs the server at localhost:3000
+
+Tests are only included in the master branch and have limited coverage (but at least Travis CI confirms they run).
+
 # SITEPOINT FRONTEND TEST
 
 You need to create a simple counter application that can do the following:
